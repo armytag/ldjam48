@@ -11,6 +11,7 @@ var is_punching = false
 var health
 
 signal punch
+signal hit
 
 export(String, "blue", "red") var PLAYER_COLOR
 
@@ -74,6 +75,19 @@ func _physics_process(delta):
 			$Sprite.animation = "blue-idle"
 		else:
 			$Sprite.animation = "blue-walk"
+	elif PLAYER_COLOR == "red":
+		if is_punching:
+			$Sprite.animation = "red-punch"
+		elif is_blocking:
+			$Sprite.animation = "red-block"
+		elif velocity.y < 0:
+			$Sprite.animation = "red-jump"
+		elif velocity.y > 0:
+			$Sprite.animation = "red-falling"
+		elif velocity.x == 0:
+			$Sprite.animation = "red-idle"
+		else:
+			$Sprite.animation = "red-walk"
 	
 	if velocity.x > 0:
 		$Sprite.flip_h = false
@@ -83,6 +97,7 @@ func _physics_process(delta):
 	$Camera2D.zoom_in(position - $Camera2D.get_camera_position())
 
 func punch():
+	$PunchSFX.play()
 	var bodies = $FistArea2D.get_overlapping_bodies()
 	for body in bodies:
 		if body.name == "Goon":
@@ -92,10 +107,13 @@ func take_damage(damage):
 	if not is_blocking:
 		health -= damage
 		print(health)
+		$HitSFX.play()
+		emit_signal('hit')
 	if health <= 0:
 		die()
 func die():
 	print("GAME OVER")
+	get_tree().paused = true
 	
 
 

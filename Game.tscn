@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/sprites/background.png" type="Texture" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,10 @@
 [ext_resource path="res://StartMessage.gd" type="Script" id=11]
 [ext_resource path="res://Evidence.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/sprites/evidence.png" type="Texture" id=13]
+[ext_resource path="res://assets/sfx/goon-laugh.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/sfx/collect.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/sprites/heart.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/blue-heart.png" type="Texture" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1600, 10 )
@@ -179,7 +183,7 @@ shape = SubResource( 4 )
 position = Vector2( -595.101, 227.876 )
 scale = Vector2( 3, 3 )
 z_index = 2
-PLAYER_COLOR = "blue"
+PLAYER_COLOR = "red"
 
 [node name="StartingEvidence" parent="." instance=ExtResource( 12 )]
 position = Vector2( -301, 243 )
@@ -193,6 +197,14 @@ position = Vector2( 500, 50 )
 [node name="FightMusic" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 7 )
+
+[node name="GoonLaugh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="CollectSFX" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 15 )
+volume_db = -10.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 pause_mode = 2
@@ -271,6 +283,7 @@ anchor_bottom = 1.0
 margin_left = -240.0
 margin_top = -240.0
 margin_right = 240.0
+margin_bottom = -40.0
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -281,7 +294,7 @@ anchor_right = 1.0
 margin_left = 40.0
 margin_top = 40.0
 margin_right = -40.0
-margin_bottom = 200.0
+margin_bottom = 160.0
 custom_fonts/font = SubResource( 6 )
 align = 1
 valign = 1
@@ -318,10 +331,10 @@ autostart = true
 anims/fade = SubResource( 8 )
 
 [node name="EvidenceCount" type="Label" parent="HUD"]
-margin_left = 60.0
-margin_top = 40.0
-margin_right = 60.0
-margin_bottom = 14.0
+margin_left = 62.0
+margin_top = 9.5
+margin_right = 78.0
+margin_bottom = 44.5
 grow_vertical = 2
 custom_fonts/font = SubResource( 10 )
 text = "0"
@@ -331,10 +344,44 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="HUD/EvidenceCount"]
-position = Vector2( -20, 16 )
+position = Vector2( -22, 16 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 13 )
 
+[node name="HealthCount" type="Label" parent="HUD"]
+margin_left = 62.0
+margin_top = 66.0
+margin_right = 78.0
+margin_bottom = 95.0
+custom_fonts/font = SubResource( 10 )
+text = "6"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="HUD/HealthCount"]
+position = Vector2( -23, 16 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 16 )
+
+[node name="BlueHealthCount" type="Label" parent="HUD"]
+visible = false
+margin_left = 62.0
+margin_top = 120.0
+margin_right = 78.0
+margin_bottom = 95.0
+custom_fonts/font = SubResource( 10 )
+text = "6"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="HUD/BlueHealthCount"]
+position = Vector2( -23, 16 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 17 )
+
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="collected" from="StartingEvidence" to="." method="_on_StartingEvidence_collected"]
 [connection signal="timeout" from="GoonSpawner" to="." method="_on_GoonSpawner_timeout"]
 [connection signal="start_game" from="HUD/Dialogue" to="." method="_on_Dialogue_start_game"]

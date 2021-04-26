@@ -1,8 +1,11 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://assets/sprites/blue-player.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://PlayerCamera2D.gd" type="Script" id=3]
+[ext_resource path="res://assets/sfx/player-punch.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/sfx/player-hit.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sprites/red-player.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.1058, 9.73599 )
@@ -19,9 +22,41 @@ region = Rect2( 96, 0, 16, 24 )
 atlas = ExtResource( 1 )
 region = Rect2( 112, 0, 16, 24 )
 
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 6 )
+region = Rect2( 48, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 6 )
+region = Rect2( 64, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 6 )
+region = Rect2( 128, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 6 )
+region = Rect2( 112, 0, 16, 24 )
+
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
 region = Rect2( 112, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 6 )
+region = Rect2( 16, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 6 )
+region = Rect2( 32, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 6 )
+region = Rect2( 80, 0, 16, 24 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
@@ -59,6 +94,10 @@ region = Rect2( 128, 0, 16, 24 )
 atlas = ExtResource( 1 )
 region = Rect2( 144, 0, 16, 24 )
 
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 6 )
+region = Rect2( 112, 0, 16, 24 )
+
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
 region = Rect2( 48, 0, 16, 24 )
@@ -66,6 +105,30 @@ region = Rect2( 48, 0, 16, 24 )
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 6 )
+region = Rect2( 128, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 6 )
+region = Rect2( 144, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 6 )
+region = Rect2( 160, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 6 )
+region = Rect2( 176, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 6 )
+region = Rect2( 192, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 6 )
+region = Rect2( 208, 0, 16, 24 )
 
 [sub_resource type="SpriteFrames" id=12]
 animations = [ {
@@ -79,9 +142,29 @@ animations = [ {
 "name": "blue-jump",
 "speed": 10.0
 }, {
+"frames": [ SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "red-punch",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 20 ), SubResource( 21 ) ],
+"loop": false,
+"name": "red-jump",
+"speed": 10.0
+}, {
 "frames": [ SubResource( 5 ) ],
 "loop": true,
 "name": "blue-falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 23 ) ],
+"loop": true,
+"name": "red-idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 25 ) ],
+"loop": true,
+"name": "red-block",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 7 ) ],
@@ -94,14 +177,24 @@ animations = [ {
 "name": "blue-walk",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 26 ) ],
+"loop": true,
+"name": "red-falling",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "blue-punch",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"loop": true,
+"name": "red-walk",
+"speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=19]
-radius = 4.0
+radius = 6.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 4
@@ -113,7 +206,8 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 12 )
-animation = "blue-punch"
+animation = "red-walk"
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -127,5 +221,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FistArea2D"]
 position = Vector2( 6.03323, 0 )
 shape = SubResource( 19 )
+
+[node name="PunchSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="HitSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]

@@ -29,12 +29,14 @@ func _on_GoonSpawner_timeout():
 	spawn_goon()
 	
 func spawn_goon():
+	$GoonLaugh.play()
 	var new_goon = GOON.instance()
 	new_goon.position = $GoonSpawn.position
 	new_goon.target_player(get_node("Player"))
 	add_child(new_goon)
 
 func collect_evidence():
+	$CollectSFX.play()
 	evidence_count += 1
 	$HUD/EvidenceCount.text = String(evidence_count)
 
@@ -49,3 +51,10 @@ func _on_Dialogue_start_game():
 	$FightMusic.play()
 	$GoonSpawner.start()
 	spawn_goon()
+
+func update_red_health():
+	$HUD/HealthCount.text = String($Player.health)
+
+
+func _on_Player_hit():
+	update_red_health()

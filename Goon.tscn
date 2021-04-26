@@ -1,7 +1,9 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Goon.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/base-player.png" type="Texture" id=2]
+[ext_resource path="res://assets/sfx/goon-punch.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sfx/goon-hit.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.1058, 9.73599 )
@@ -129,6 +131,13 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 21 )
 animation = "winding"
+frame = 1
 playing = true
+
+[node name="PunchSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="HitSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]

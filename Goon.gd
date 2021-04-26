@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const EVIDENCE = preload("res://Evidence.tscn")
+
 var RUN_SPEED = 250
 var JUMP_SPEED = -800
 var GRAVITY = 1800
@@ -63,6 +65,8 @@ func choose_action():
 			punch()
 			next_punch_time = -1
 		else:
+			if not is_winding:
+				$PunchSFX.play()
 			is_punching = false
 			is_winding = true
 		is_blocking = false
@@ -119,6 +123,7 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 
 func punch():
+#	$PunchSFX.play()
 	var distance = target.position.distance_to(position)
 	if distance < FOLLOW_MARGIN:
 		target.take_damage(1)
@@ -126,8 +131,14 @@ func punch():
 func take_damage(damage):
 	if not is_blocking:
 		health -= damage
+		$HitSFX.play()
 	if health <= 0:
 		die()
+		
 func die():
 	print("AAAAGGHHH!!!")
+	var evidence = EVIDENCE.instance()
+	evidence.position = position + Vector2(randi()%24, -randi()%24)
+	evidence.connect("collected", get_parent(), "collect_evidence")
+	get_parent().add_child(evidence)
 	queue_free()

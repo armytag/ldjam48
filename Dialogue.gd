@@ -8,7 +8,7 @@ var stage = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Label.text = "Well, if it isn't the Deeper siblings..."
+	$Label.text = "Well, if it isn't the Deeper siblings...\n\nSPACE"
 
 
 func _input(event):
@@ -16,9 +16,9 @@ func _input(event):
 		print(event)
 		stage += 1
 	if stage == 1:
-		$Label.text = "You won't get any more evidence without a fight!"
+		$Label.text = "You won't get any more evidence without a fight!\n\nSPACE"
 	elif stage == 2:
-		$Label.text = "GET 'EM!!!"
+		$Label.text = "GET 'EM!!!\n\nSPACE"
 	elif stage == 3:
 		get_tree().paused = false
 		emit_signal('start_game')
