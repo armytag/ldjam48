@@ -58,3 +58,15 @@ func update_red_health():
 
 func _on_Player_hit():
 	update_red_health()
+
+
+func _on_Player_die():
+	print("GAME OVER")
+	get_tree().paused = true
+	var msg = "GAME OVER\n\n"
+	msg += "You have been beaten by the mobsters,\n"
+	msg += "but you were able to collect " + String(evidence_count)
+	msg += "\npieces of evidence"
+	msg += "\n\nPress SPACE to restart"
+	$HUD/GameOver/SpaceInfo.text = msg
+	$HUD/GameOver.show()

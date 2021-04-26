@@ -12,6 +12,7 @@ var health
 
 signal punch
 signal hit
+signal die
 
 export(String, "blue", "red") var PLAYER_COLOR
 
@@ -112,8 +113,7 @@ func take_damage(damage):
 	if health <= 0:
 		die()
 func die():
-	print("GAME OVER")
-	get_tree().paused = true
+	emit_signal('die')
 	
 
 

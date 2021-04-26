@@ -207,7 +207,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 12 )
 animation = "red-walk"
-frame = 2
+frame = 4
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

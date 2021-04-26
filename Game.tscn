@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/sprites/background.png" type="Texture" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/sfx/collect.wav" type="AudioStream" id=15]
 [ext_resource path="res://assets/sprites/heart.png" type="Texture" id=16]
 [ext_resource path="res://assets/sprites/blue-heart.png" type="Texture" id=17]
+[ext_resource path="res://GameOver.gd" type="Script" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1600, 10 )
@@ -185,6 +186,12 @@ scale = Vector2( 3, 3 )
 z_index = 2
 PLAYER_COLOR = "red"
 
+[node name="BluePlayer" parent="." instance=ExtResource( 2 )]
+position = Vector2( -595.101, 227.876 )
+scale = Vector2( 3, 3 )
+z_index = 2
+PLAYER_COLOR = "blue"
+
 [node name="StartingEvidence" parent="." instance=ExtResource( 12 )]
 position = Vector2( -301, 243 )
 
@@ -269,6 +276,35 @@ grow_vertical = 0
 custom_fonts/font = SubResource( 9 )
 text = "Press SPACE to dismiss"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="Panel" parent="HUD"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.784314 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -300.0
+margin_right = 400.0
+margin_bottom = 300.0
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpaceInfo" type="Label" parent="HUD/GameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_fonts/font = SubResource( 9 )
+text = "Press SPACE to dismiss"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -381,7 +417,10 @@ position = Vector2( -23, 16 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 17 )
 
+[connection signal="die" from="Player" to="." method="_on_Player_die"]
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+[connection signal="die" from="BluePlayer" to="." method="_on_Player_die"]
+[connection signal="hit" from="BluePlayer" to="." method="_on_Player_hit"]
 [connection signal="collected" from="StartingEvidence" to="." method="_on_StartingEvidence_collected"]
 [connection signal="timeout" from="GoonSpawner" to="." method="_on_GoonSpawner_timeout"]
 [connection signal="start_game" from="HUD/Dialogue" to="." method="_on_Dialogue_start_game"]
