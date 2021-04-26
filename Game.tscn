@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://assets/sprites/background.png" type="Texture" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://assets/sprites/heart.png" type="Texture" id=16]
 [ext_resource path="res://assets/sprites/blue-heart.png" type="Texture" id=17]
 [ext_resource path="res://GameOver.gd" type="Script" id=18]
+[ext_resource path="res://StartScreen.gd" type="Script" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1600, 10 )
@@ -35,20 +36,23 @@ extents = Vector2( 24, 1 )
 size = 32
 font_data = ExtResource( 10 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=6]
 size = 32
 font_data = ExtResource( 10 )
 
-[sub_resource type="DynamicFont" id=6]
-size = 28
+[sub_resource type="DynamicFont" id=11]
+size = 24
 font_data = ExtResource( 10 )
 
 [sub_resource type="DynamicFont" id=7]
+size = 28
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=8]
 size = 40
 font_data = ExtResource( 10 )
 
-[sub_resource type="Animation" id=8]
-resource_name = "fade"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:self_modulate")
 tracks/0/interp = 1
@@ -186,12 +190,6 @@ scale = Vector2( 3, 3 )
 z_index = 2
 PLAYER_COLOR = "red"
 
-[node name="BluePlayer" parent="." instance=ExtResource( 2 )]
-position = Vector2( -595.101, 227.876 )
-scale = Vector2( 3, 3 )
-z_index = 2
-PLAYER_COLOR = "blue"
-
 [node name="StartingEvidence" parent="." instance=ExtResource( 12 )]
 position = Vector2( -301, 243 )
 
@@ -217,7 +215,6 @@ volume_db = -10.0
 pause_mode = 2
 
 [node name="Panel" type="Panel" parent="HUD"]
-visible = false
 self_modulate = Color( 1, 1, 1, 0.784314 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -237,28 +234,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 40.0
 margin_right = -40.0
+margin_bottom = -174.0
 custom_fonts/font = SubResource( 5 )
-text = "Player 1 Controls:
-Move: W, A, D
-Block: S
-Attack: F"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "Controls:
 
-[node name="P2Controls" type="Label" parent="HUD/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 40.0
-margin_right = -40.0
-custom_fonts/font = SubResource( 5 )
-text = "Player 2 Controls:
-Move: Arrow Keys
-Block: Down Arrow
-Attack: Control"
-align = 2
+
+Movement - Arrowkeys or W,A,D
+
+Blocking - Down Arrow or S
+
+Punching - CONTROL or F"
+align = 1
 valign = 1
 autowrap = true
 __meta__ = {
@@ -273,7 +259,7 @@ margin_top = -14.0
 margin_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 6 )
 text = "Press SPACE to dismiss"
 align = 1
 __meta__ = {
@@ -301,8 +287,95 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 6 )
 text = "Press SPACE to dismiss"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartScreen" type="Panel" parent="HUD"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -300.0
+margin_right = 400.0
+margin_bottom = 300.0
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="Label" parent="HUD/StartScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_fonts/font = SubResource( 6 )
+text = "Welcome to Deeper & Deeper LLC,
+the toughest legal firm around.  You and
+your sister are out collecting some evidence
+to put away a nasty crime boss.
+
+Which sister will take on the search?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="HUD/StartScreen"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -200.0
+margin_bottom = -100.0
+grow_vertical = 0
+rect_min_size = Vector2( 800, 100 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BertaButton" type="Button" parent="HUD/StartScreen/Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 100.0
+margin_top = -10.0
+margin_right = 300.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/StartScreen/Control/BertaButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 11 )
+text = "Berta Deeper"
+align = 1
+valign = 1
+
+[node name="RuthButton" type="Button" parent="HUD/StartScreen/Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 500.0
+margin_top = -10.0
+margin_right = 700.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="HUD/StartScreen/Control/RuthButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 11 )
+text = "Ruth Deeper"
 align = 1
 valign = 1
 __meta__ = {
@@ -331,12 +404,13 @@ margin_left = 40.0
 margin_top = 40.0
 margin_right = -40.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 align = 1
 valign = 1
 autowrap = true
 
 [node name="StartMessage" type="Label" parent="HUD"]
+visible = false
 self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -348,7 +422,7 @@ margin_right = 20.0
 margin_bottom = 21.5
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 text = "Press ESCAPE for
 Controls"
 align = 1
@@ -361,10 +435,9 @@ __meta__ = {
 [node name="Timer" type="Timer" parent="HUD/StartMessage"]
 wait_time = 2.0
 one_shot = true
-autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/StartMessage"]
-anims/fade = SubResource( 8 )
+anims/fade = SubResource( 9 )
 
 [node name="EvidenceCount" type="Label" parent="HUD"]
 margin_left = 62.0
@@ -419,10 +492,10 @@ texture = ExtResource( 17 )
 
 [connection signal="die" from="Player" to="." method="_on_Player_die"]
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
-[connection signal="die" from="BluePlayer" to="." method="_on_Player_die"]
-[connection signal="hit" from="BluePlayer" to="." method="_on_Player_hit"]
 [connection signal="collected" from="StartingEvidence" to="." method="_on_StartingEvidence_collected"]
 [connection signal="timeout" from="GoonSpawner" to="." method="_on_GoonSpawner_timeout"]
+[connection signal="pressed" from="HUD/StartScreen/Control/BertaButton" to="." method="_on_BertaButton_pressed"]
+[connection signal="pressed" from="HUD/StartScreen/Control/RuthButton" to="." method="_on_RuthButton_pressed"]
 [connection signal="start_game" from="HUD/Dialogue" to="." method="_on_Dialogue_start_game"]
 [connection signal="timeout" from="HUD/StartMessage/Timer" to="HUD/StartMessage" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="HUD/StartMessage/AnimationPlayer" to="HUD/StartMessage" method="_on_AnimationPlayer_animation_finished"]

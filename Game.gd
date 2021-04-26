@@ -12,7 +12,9 @@ func _ready():
 	active_player = get_node("Player")
 	$Player/Camera2D.current = true
 	$HUD/StartMessage.self_modulate = Color(1,1,1,1)
-	$HUD/StartMessage.show()
+	$HUD/StartScreen.self_modulate = Color(1,1,1,1)
+	$HUD/StartScreen.show()
+	get_tree().paused = true
 #	spawn_goon()
 
 
@@ -70,3 +72,17 @@ func _on_Player_die():
 	msg += "\n\nPress SPACE to restart"
 	$HUD/GameOver/SpaceInfo.text = msg
 	$HUD/GameOver.show()
+
+func start():
+	get_tree().paused = false
+	$HUD/StartScreen.hide()
+	$HUD/StartMessage.show()
+	$HUD/StartMessage/Timer.start()
+	
+
+func _on_BertaButton_pressed():
+	$Player.PLAYER_COLOR = "blue"
+	start()
+func _on_RuthButton_pressed():
+	$Player.PLAYER_COLOR = "red"
+	start()
