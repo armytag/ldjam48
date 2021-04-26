@@ -40,19 +40,19 @@ font_data = ExtResource( 10 )
 size = 32
 font_data = ExtResource( 10 )
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=7]
 size = 24
 font_data = ExtResource( 10 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=8]
 size = 28
 font_data = ExtResource( 10 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=9]
 size = 40
 font_data = ExtResource( 10 )
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:self_modulate")
 tracks/0/interp = 1
@@ -66,7 +66,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=11]
 size = 32
 font_data = ExtResource( 10 )
 
@@ -215,6 +215,7 @@ volume_db = -10.0
 pause_mode = 2
 
 [node name="Panel" type="Panel" parent="HUD"]
+visible = false
 self_modulate = Color( 1, 1, 1, 0.784314 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -355,7 +356,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="HUD/StartScreen/Control/BertaButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 7 )
 text = "Berta Deeper"
 align = 1
 valign = 1
@@ -374,7 +375,7 @@ __meta__ = {
 [node name="Label2" type="Label" parent="HUD/StartScreen/Control/RuthButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 7 )
 text = "Ruth Deeper"
 align = 1
 valign = 1
@@ -404,7 +405,7 @@ margin_left = 40.0
 margin_top = 40.0
 margin_right = -40.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 align = 1
 valign = 1
 autowrap = true
@@ -422,7 +423,7 @@ margin_right = 20.0
 margin_bottom = 21.5
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Press ESCAPE for
 Controls"
 align = 1
@@ -437,7 +438,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/StartMessage"]
-anims/fade = SubResource( 9 )
+anims/fade = SubResource( 10 )
 
 [node name="EvidenceCount" type="Label" parent="HUD"]
 margin_left = 62.0
@@ -445,7 +446,7 @@ margin_top = 9.5
 margin_right = 78.0
 margin_bottom = 44.5
 grow_vertical = 2
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "0"
 valign = 1
 __meta__ = {
@@ -462,7 +463,7 @@ margin_left = 62.0
 margin_top = 66.0
 margin_right = 78.0
 margin_bottom = 95.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "6"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -479,7 +480,7 @@ margin_left = 62.0
 margin_top = 120.0
 margin_right = 78.0
 margin_bottom = 95.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "6"
 __meta__ = {
 "_edit_use_anchors_": false
